@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <package>
-    <metadata minClientVersion="3.3">
+    <metadata>
       <id>RedGate.ThirdParty.SharpSvn</id>
       <version>0.0.1</version>
       <authors>Red Gate Software</authors>
@@ -11,14 +11,12 @@
         This package was created to make SharpSvn easier to install/upgrade for Red Gate.
       </description>
       <copyright>Copyright 2016</copyright>
-      <contentFiles>
-        <files include="x86/**" buildAction="None" copyToOutput="true" />
-        <files include="x64/**" buildAction="None" copyToOutput="true" />
-      </contentFiles>
     </metadata>
     <files>
-      <file src="x86/**" target="content" />
-      <file src="x64/**" target="content" />
-      <!-- <file src="How to build a new version of RedGate.ThirdParty.SharpSvn.md" target="tools" /> -->
+      <file src="x86/**" target="build" />
+      <file src="x64/**" target="build" />
+      <file src="../RedGate.ThirdParty.SharpSvn.targets" target="build" />
+      
+      <file src="x86/SharpSvn.dll" target="lib\net20" />
     </files>
   </package>

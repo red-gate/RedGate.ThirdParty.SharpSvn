@@ -45,7 +45,7 @@ try {
     Get-ChildItem .\packages\$PackageName-x86\lib\net20\* -Include '*.svn*', '*.dll' | Copy-Item -Destination .\files\x86 -verbose
     Get-ChildItem .\packages\$PackageName-x64\lib\net20\* -Include '*.svn*', '*.dll' | Copy-Item -Destination .\files\x64 -verbose
 
-    .\nuget.exe pack RedGate.ThirdParty.SharpSVN.nuspec -Version $Version -BasePath files -verbosity detailed
+    .\nuget.exe pack RedGate.ThirdParty.SharpSVN.nuspec -Version $Version -BasePath files -NoDefaultExclude -verbosity detailed
 
 } finally {
     Pop-Location
