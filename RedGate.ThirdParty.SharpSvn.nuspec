@@ -16,7 +16,7 @@
       <file src="x86/**" target="build" />
       <file src="x64/**" target="build" />
       <file src="../RedGate.ThirdParty.SharpSvn.targets" target="build" />
-      
-      <file src="x86/SharpSvn.dll" target="lib\net20" />
+
+      <file src="SharpSvn.dll" target="lib\net20" />
     </files>
   </package>

@@ -4,13 +4,28 @@
     Add the content of the nuget package as linked items in the project file.
     + get them to be copied to the build output folder.
     -->
-    <Content Include="$(MSBuildThisFileDirectory)x64\**">
+    <None Include="$(MSBuildThisFileDirectory)x64\**" Exclude="$(MSBuildThisFileDirectory)x64\SharpSvn-x64.dll">
       <Link>x64\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="$(MSBuildThisFileDirectory)x86\**">
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)x86\**" Exclude="$(MSBuildThisFileDirectory)x86\SharpSvn-x86.dll">
       <Link>x86\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
+
+    <!--
+    Separately include x64\SharpSvn.dll and x86\SharpSvn.dll
+    So that they are not called SharpSvn.dll in the 'Include' attribute.
+    If they were called SharpSvn.dll, they might be resolved instead of the lib\net20\SharpSvn.dll
+    which might cause compile exception due to processor architecture mismatch :sweat:
+    -->
+    <None Include="$(MSBuildThisFileDirectory)x64\SharpSvn-x64.dll" >
+      <Link>x64\SharpSvn.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)x86\SharpSvn-x86.dll" >
+      <Link>x86\SharpSvn.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

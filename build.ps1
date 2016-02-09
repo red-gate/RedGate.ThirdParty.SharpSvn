@@ -45,6 +45,15 @@ try {
     Get-ChildItem .\packages\$PackageName-x86\lib\net20\* -Include '*.svn*', '*.dll' | Copy-Item -Destination .\files\x86 -verbose
     Get-ChildItem .\packages\$PackageName-x64\lib\net20\* -Include '*.svn*', '*.dll' | Copy-Item -Destination .\files\x64 -verbose
 
+    # Rename the SharpSvn.dll assemblies that will be packaged in the build\ folder so that
+    # they cannot be confused with lib\net20\SharpSvn.dll that is the only 'lib' assembly of the RedGate.ThirdParty.SharpSvn package.
+    # (if we don't do this, this assemblies can end up being resolved by Msbuild at build time, which can cause processor architecture related compile errors)
+    Rename-Item .\files\x86\SharpSvn.dll -NewName SharpSvn-x86.dll
+    Rename-Item .\files\x64\SharpSvn.dll -NewName SharpSvn-x64.dll
+
+    # This is the package main assembly that will be referenced in 'lib'
+    Copy-Item .\files\x86\SharpSvn-x86.dll .\files\SharpSvn.dll
+
     .\nuget.exe pack RedGate.ThirdParty.SharpSVN.nuspec -Version $Version -BasePath files -NoDefaultExclude -verbosity detailed
 
 } finally {
